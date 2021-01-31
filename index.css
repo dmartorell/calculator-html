@@ -1,0 +1,80 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color:#352f5e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.device {
+    display: flex;
+    flex-direction: column;
+
+    /* border: 1px solid aqua; */
+    width: 400px;
+    height: 500px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    /* GRADIENT */
+    background: rgb(116,228,224);
+    background: -moz-linear-gradient(32deg, rgba(116,228,224,1) 0%, rgba(3,21,62,1) 74%);
+    background: -webkit-linear-gradient(32deg, rgba(116,228,224,1) 0%, rgba(3,21,62,1) 74%);
+    background: linear-gradient(32deg, rgba(116,228,224,1) 0%, rgba(3,21,62,1) 74%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#74e4e0",endColorstr="#03153e",GradientType=1);
+}
+#main {
+    font-size: 2.5em;
+    margin-right: 10px;
+    margin-top: 10px;   
+}
+#operations {
+    margin-right: 10px; 
+    margin-top: 10px;
+    font-size: 0.7em;
+
+}
+.screen {
+    height: 125px;
+    /* border: 1px solid antiquewhite; */
+    margin: 10px 10px;
+    color: beige;
+    text-align: right;
+
+
+}
+.keys {
+    /* display: flex; */
+    height: 100%;
+    /* border: 2px solid red; */
+    margin: 10px 10px;
+    flex-wrap: wrap;
+    justify-items: flex-end;
+}
+
+.key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: beige;
+    border: 1px solid #2F6A7F;
+    padding: 20px 20px;
+    margin-left: 3px;
+    margin-right: 3px;
+    
+    
+}
+.row {
+    display: flex;
+    justify-content: stretch;
+    margin: 3px;
+}
+
+
+
+
