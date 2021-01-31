@@ -134,10 +134,13 @@ window.addEventListener('keydown', function(e){
             break;
             
             default:
-                stringFromUser += e.key;
-                if(main.textContent === '0'){
+                
+                if(!stringFromUser){
+                    stringFromUser += e.key;
                     main.textContent = e.key;
-                } else {
+                }
+                else {
+                    stringFromUser += e.key;
                     main.textContent += e.key;
                 }
 
@@ -147,7 +150,7 @@ window.addEventListener('keydown', function(e){
 //////////// ENTER KEY or =
 
     if(isEnter(e.key)){
-        if(!stringFromUser) {
+        if(!stringFromUser) {  // usuario aprieta intro sobre un resultado ya dado.
             main.textContent = result;
             pointCounter = 0;
         } 
