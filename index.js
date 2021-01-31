@@ -143,6 +143,9 @@ window.addEventListener('keydown', function(e){
 
         }
     }
+
+//////////// ENTER KEY or =
+
     if(isEnter(e.key)){
         if(!stringFromUser) {
             main.textContent = result;
