@@ -109,7 +109,7 @@ window.addEventListener('keydown', function(e){
             case '%':
 
                 if(!stringFromUser){
-                    stringFromUser += `${result}%`;
+                    stringFromUser += result ? `${result}%` : '0%';
                     main.textContent = stringFromUser.replace('%', ' % ');
                     pointCounter = 0;
                 } else {
@@ -199,7 +199,7 @@ function isValid(key, lastChar, pointCounter){
 
     if (!OPERANDS.has(key) && !OPERATORS.has(key) && !SPECIAL_KEYS.has(key)) return false;
     if ((key === ',' || key === '.') && pointCounter > 0) return false; 
-    if (OPERATORS.has(lastChar) && key === 'Enter') return false;
+    if (lastChar !== '%' && OPERATORS.has(lastChar) && key === 'Enter') return false;
 
     
     if (key === '*' && lastChar === '*') return false;
