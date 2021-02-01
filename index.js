@@ -2,8 +2,6 @@
 // TODOS ******
 
 
-// backspace cuando borra coma tiene que update coma counter.
-// backspace deshace los espacios entre operadores.
 // '12 x intro' === error, debería devovler 12x12. 
 // Cuando result = ERROR o INIFINITY or -INFINITY qué pasa si intentas seguir haciendo operaciones. 
 // BOTÓN DE +/-
@@ -181,7 +179,7 @@ window.addEventListener('keydown', function(e){
             result = processParsedString (parsedString);
             stringFromUser = '';
             main.textContent = result;
-            lastResult = result;
+            // lastResult = result;
             pointCounter = 0;
         }
     }
@@ -240,7 +238,7 @@ function processParsedString(parsedArray){
         const operator = parsedArray[i];
         const next = parsedArray[i+1];
         total = calculate[operator](total,+next);
-        total = isNaN(total) ? 'Error' : total;
     }
+    total = isNaN(total) ? 'Error' : total;
     return total;
 }

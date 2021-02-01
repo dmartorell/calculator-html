@@ -23,19 +23,20 @@ function parseString(str){
     return output.filter(element => element);
 }
 
-function processParsedString(parcedString){
-    let total = +parcedString[0]
+function processParsedString(parsedArray){
+    let total = +parsedArray[0]
 
-    for(let i = 1; i < parcedString.length; i += 2){
-        const operator = parcedString[i];
-        const next = parcedString[i+1];
+    for(let i = 1; i < parsedArray.length; i += 2){
+        const operator = parsedArray[i];
+        const next = parsedArray[i+1];
         total = calculate[operator](total,+next);
+        
     }
+    total = isNaN(total) ? 'Error' : total;
     return total;
 }
 
-let parsed = (parseString('12*0'));
-console.log(parsed);
+let parsed = (parseString('-'));
 console.log(processParsedString(parsed));
 
 // let parced = (parseString('25*2+4-3'));
