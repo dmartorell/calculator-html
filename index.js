@@ -141,10 +141,12 @@ window.addEventListener('keydown', function(e){
                     screenToZero();
                     resetStringFromUser();
                     resetResult();
+                    pointCounter = 0;
+
                 }
                 else {
                     stringFromUser = stringFromUser.slice(0,-1);
-                    main.textContent = stringFromUser;
+                    main.textContent = main.textContent.slice(0,-1);
                 }
                 
             break;
