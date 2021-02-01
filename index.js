@@ -208,12 +208,12 @@ function parseString(str){
     return output.filter(element => element);
 }
 
-function processParsedString(parsedString){
-    let total = +parsedString[0]
+function processParsedString(parsedArray){
+    let total = +parsedArray[0]
 
-    for(let i = 1; i < parsedString.length; i += 2){
-        const operator = parsedString[i];
-        const next = parsedString[i+1];
+    for(let i = 1; i < parsedArray.length; i += 2){
+        const operator = parsedArray[i];
+        const next = parsedArray[i+1];
         total = calculate[operator](total,+next) || 'Error';
     }
     return total;
