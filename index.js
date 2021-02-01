@@ -1,8 +1,8 @@
 
 // TODOS ******
 
-// resultados que dan '0' aparece 'ERROR'.
-
+// segunda coma en operaciones, rompe el cambio de operadores.
+// backspace cuando borra coma tiene que update coma counter.
 // Cuando result = ERROR o INIFINITY or -INFINITY qué pasa si intentas seguir haciendo operaciones. 
 // BOTÓN DE +/-
 // DISPLAY EN '0' O 'RESULTADO' : SI USUARIO INTRODUCE OPERADORES SE SUMAN AL '0'.
@@ -85,7 +85,10 @@ window.addEventListener('keydown', function(e){
             break;
             case '+':
             
-                if(!stringFromUser){
+                if(!stringFromUser && main.textContent === '0'){
+                    stringFromUser += e.key;
+                    main.textContent = stringFromUser.replace('+', ' + ');
+                } else if(!stringFromUser){
                     stringFromUser += `${result}+`;
                     main.textContent = stringFromUser.replace('+', ' + ');
                     pointCounter = 0;
@@ -93,8 +96,8 @@ window.addEventListener('keydown', function(e){
                     stringFromUser += '+';
                     main.textContent += ' + ';
                     pointCounter = 0;
-
                 }
+
             break;
             case '-':
 
