@@ -1,7 +1,7 @@
 
 // TODOS ******
 
-
+//cuando hay resultado en display y usuario añade '.3' aparece resultado + 0.3
 // '12 x intro' === error, debería devovler 12x12. 
 // Cuando result = ERROR o INIFINITY or -INFINITY qué pasa si intentas seguir haciendo operaciones. 
 // BOTÓN DE +/-
@@ -33,32 +33,24 @@ let result;
 window.addEventListener('keydown', function(e){
     let lastChar = stringFromUser.charAt(stringFromUser.length - 1);
 
+    
+
     if(isValid(e.key, lastChar, pointCounter) && !isEnter(e.key)){
         
         switch(e.key){
             
             case ',':
-                if(!OPERANDS.has(lastChar) && main.textContent === '0'){
-                    stringFromUser += '0.';
-                    main.textContent = '0.'
-                } else if(!OPERANDS.has(lastChar)){
-                        stringFromUser += '0.';
-                        main.textContent += '0.'
-                } else {
-                    stringFromUser += '.';
-                    main.textContent += '.';
-                }
-                pointCounter = 1;
-                
-            break;
-
             case '.':
-                if(!OPERANDS.has(lastChar) && main.textContent === '0'){
+                if(stringFromUser === 0 && main.textContent === '0'){
                     stringFromUser += '0.';
                     main.textContent = '0.'
-                } else if(!OPERANDS.has(lastChar)){
-                        stringFromUser += '0.';
-                        main.textContent += '0.'
+                } else if(!stringFromUser && main.textContent.length > 0){
+                    stringFromUser += '0.';
+                    main.textContent = '0.'
+                }else if(OPERATORS.has(lastChar)){
+                    stringFromUser += '0.';
+                    main.textContent += '0.';
+
                 } else {
                     stringFromUser += '.';
                     main.textContent += '.';
@@ -160,17 +152,21 @@ window.addEventListener('keydown', function(e){
             
             default:
                 
-                if(!stringFromUser){
-                    stringFromUser += e.key;
-                    main.textContent = e.key;
-                }
-                else {
-                    stringFromUser += e.key;
-                    main.textContent += e.key;
-                }
-
+            if(!stringFromUser){
+                stringFromUser += e.key;
+                main.textContent = e.key;
+            }
+            else {
+                stringFromUser += e.key;
+                main.textContent += e.key;
+            }
         }
     }
+    console.log('text content: ' + main.textContent);
+    console.log({stringFromUser});
+    console.log({lastChar});
+
+
 
 //////////// ENTER KEY or =
 
