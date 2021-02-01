@@ -2,9 +2,13 @@
 // TODOS ******
 
 // segunda coma en operaciones, rompe el cambio de operadores.
+
 // backspace cuando borra coma tiene que update coma counter.
+// backspace deshace los espacios entre operadores.
+// '12 x intro' === error, debería devovler 12x12. 
 // Cuando result = ERROR o INIFINITY or -INFINITY qué pasa si intentas seguir haciendo operaciones. 
 // BOTÓN DE +/-
+// USO DEL %
 // DISPLAY EN '0' O 'RESULTADO' : SI USUARIO INTRODUCE OPERADORES SE SUMAN AL '0'.
 // SI USUARIO INTRODUCE OPERADOR SEGUIDO DE OPERADOR HAY REGLAS:
             // SE MANTIENEN AMBOS SI EL PRIMEROS ES '*' O '÷' Y EL SEGUNDO ES '-'
@@ -39,10 +43,11 @@ window.addEventListener('keydown', function(e){
             case ',':
                 if(!OPERANDS.has(lastChar)){
                     stringFromUser += '0.';
+                    main.textContent += '0.'
                 } else {
                     stringFromUser += '.';
+                    main.textContent += '.';
                 }
-                main.textContent = stringFromUser;
                 pointCounter = 1;
                 
             break;
@@ -50,10 +55,11 @@ window.addEventListener('keydown', function(e){
             case '.':
                 if(!OPERANDS.has(lastChar)){
                     stringFromUser += '0.';
+                    main.textContent += '0.'
                 } else {
                     stringFromUser += '.';
+                    main.textContent += '.';
                 }
-                main.textContent = stringFromUser;
                 pointCounter = 1;
                 
             break;
