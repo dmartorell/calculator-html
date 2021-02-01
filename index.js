@@ -1,7 +1,6 @@
 
 // TODOS ******
 
-// segunda coma en operaciones, rompe el cambio de operadores.
 
 // backspace cuando borra coma tiene que update coma counter.
 // backspace deshace los espacios entre operadores.
@@ -145,6 +144,10 @@ window.addEventListener('keydown', function(e){
 
                 }
                 else {
+                    if(lastChar === '.'){
+                        pointCounter = 0;
+                    } 
+
                     stringFromUser = stringFromUser.slice(0,-1);
                     main.textContent = main.textContent.slice(0,-1);
                 }
