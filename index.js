@@ -1,7 +1,6 @@
 
 // TODOS ******
 
-//cuando hay resultado en display y usuario añade '.3' aparece resultado + 0.3
 // '12 x intro' === error, debería devovler 12x12. 
 // Cuando result = ERROR o INIFINITY or -INFINITY qué pasa si intentas seguir haciendo operaciones. 
 // BOTÓN DE +/-
@@ -29,13 +28,12 @@ let stringFromUser = '';
 let lastResult;
 let pointCounter = 0;
 let result;
+let isScreenClear = true;
 
 window.addEventListener('keydown', function(e){
     let lastChar = stringFromUser.charAt(stringFromUser.length - 1);
-
-    
-
     if(isValid(e.key, lastChar, pointCounter) && !isEnter(e.key)){
+        isScreenClear = false;
         
         switch(e.key){
             
@@ -61,12 +59,12 @@ window.addEventListener('keydown', function(e){
 
             case '*':
                 if(!stringFromUser){
-                    stringFromUser += `${result}*`;
+                    stringFromUser += result ? `${result}*` : '0*';
                     main.textContent = stringFromUser.replace('*', ' x ');
                     pointCounter = 0;
                 } else {
                     stringFromUser += '*';
-                    main.textContent += ' x ';
+                    main.textContent += ' x*4 ';
                     pointCounter = 0;
                 }
                 
@@ -74,7 +72,7 @@ window.addEventListener('keydown', function(e){
             case '/':
 
                 if(!stringFromUser){
-                    stringFromUser += `${result}/`;
+                    stringFromUser += result ? `${result}/` : '0/';
                     main.textContent = stringFromUser.replace('/', ' ÷ ');
                     pointCounter = 0;
                 } else {
@@ -86,11 +84,8 @@ window.addEventListener('keydown', function(e){
             break;
             case '+':
             
-                if(!stringFromUser && main.textContent === '0'){
-                    stringFromUser += e.key;
-                    main.textContent = stringFromUser.replace('+', ' + ');
-                } else if(!stringFromUser){
-                    stringFromUser += `${result}+`;
+                if(!stringFromUser){
+                    stringFromUser += result ? `${result}+` : '0+';
                     main.textContent = stringFromUser.replace('+', ' + ');
                     pointCounter = 0;
                 } else {
@@ -102,11 +97,8 @@ window.addEventListener('keydown', function(e){
             break;
             case '-':
 
-                if(!stringFromUser && main.textContent === '0'){
-                    stringFromUser += e.key;
-                    main.textContent = stringFromUser.replace('-', ' - ');
-                } else if(!stringFromUser){
-                    stringFromUser += `${result}-`;
+                if(!stringFromUser){
+                    stringFromUser += result ? `${result}+` : '0-';
                     main.textContent = stringFromUser.replace('-', ' - ');
                     pointCounter = 0;
                 } else {
@@ -133,7 +125,7 @@ window.addEventListener('keydown', function(e){
             case 'Backspace':
                
                 if(stringFromUser.length <= 1){
-                    screenToZero();
+                    clearScreen();
                     resetStringFromUser();
                     resetResult();
                     pointCounter = 0;
@@ -165,9 +157,7 @@ window.addEventListener('keydown', function(e){
             }
         }
     }
-    console.log('text content: ' + main.textContent);
-    console.log({stringFromUser});
-    console.log({lastChar});
+    
 
 
 
@@ -196,8 +186,9 @@ function resetStringFromUser(){
 function resetResult(){
     return result = 0;
 }
-function screenToZero(){
-    return main.textContent = 0;
+function clearScreen(){
+    main.textContent = 0;
+    return;
 }
 
 function isEnter(key){
