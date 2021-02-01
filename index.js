@@ -38,9 +38,12 @@ window.addEventListener('keydown', function(e){
         switch(e.key){
             
             case ',':
-                if(!OPERANDS.has(lastChar)){
+                if(!OPERANDS.has(lastChar) && main.textContent === '0'){
                     stringFromUser += '0.';
-                    main.textContent += '0.'
+                    main.textContent = '0.'
+                } else if(!OPERANDS.has(lastChar)){
+                        stringFromUser += '0.';
+                        main.textContent += '0.'
                 } else {
                     stringFromUser += '.';
                     main.textContent += '.';
@@ -50,9 +53,12 @@ window.addEventListener('keydown', function(e){
             break;
 
             case '.':
-                if(!OPERANDS.has(lastChar)){
+                if(!OPERANDS.has(lastChar) && main.textContent === '0'){
                     stringFromUser += '0.';
                     main.textContent = '0.'
+                } else if(!OPERANDS.has(lastChar)){
+                        stringFromUser += '0.';
+                        main.textContent += '0.'
                 } else {
                     stringFromUser += '.';
                     main.textContent += '.';
