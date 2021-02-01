@@ -243,7 +243,7 @@ function processParsedString(parsedArray){
     for(let i = 1; i < parsedArray.length; i += 2){
         const operator = parsedArray[i];
         const next = parsedArray[i+1];
-        total = calculate[operator](total,+next);
+        total = +(calculate[operator](total,+next)).toFixed(10);
     }
     total = isNaN(total) ? 'Error' : total;
     return total;
