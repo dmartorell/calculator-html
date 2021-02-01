@@ -34,9 +34,13 @@ function processParsedString(parcedString){
     return total;
 }
 
-let parced = (parseString('25*2+4-3'));
-console.log(parced);// ['25','*', '2', '+', '4', '-', '3']
-console.log(processParsedString(parced)); // 51
+let parsed = (parseString('12*0'));
+console.log(parsed);
+console.log(processParsedString(parsed));
+
+// let parced = (parseString('25*2+4-3'));
+// console.log(parced);// ['25','*', '2', '+', '4', '-', '3']
+// console.log(processParsedString(parced)); // 51
 
 // let parced2 = (parseString('100/4+-25+10')); 
 // console.log(parced2);// ['100','/', '4', '+', '-25', '+', '10']

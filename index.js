@@ -1,7 +1,16 @@
 
-// TODO
+// TODOS ******
+
+// resultados que dan '0' aparece 'ERROR'.
+
 // Cuando result = ERROR o INIFINITY or -INFINITY qué pasa si intentas seguir haciendo operaciones. 
 // BOTÓN DE +/-
+// DISPLAY EN '0' O 'RESULTADO' : SI USUARIO INTRODUCE OPERADORES SE SUMAN AL '0'.
+// SI USUARIO INTRODUCE OPERADOR SEGUIDO DE OPERADOR HAY REGLAS:
+            // SE MANTIENEN AMBOS SI EL PRIMEROS ES '*' O '÷' Y EL SEGUNDO ES '-'
+            // TEST: '12÷-2' = -6  PROGRAMA FUNCIONA OK
+            // TEST: '12*-2  = -24 PROGRAMA FUNCIONA OK
+            // SE ELIMINA EL PRIMERO SI EL PRIMEROS ES '*' O '÷' Y EL SEGUNDO ES '+'
 
 const main = document.querySelector('#main');
 const OPERATORS = new Set([  '/', '*', '+', '-', '%' ]); 
@@ -89,7 +98,10 @@ window.addEventListener('keydown', function(e){
             break;
             case '-':
 
-                if(!stringFromUser){
+                if(!stringFromUser && main.textContent === '0'){
+                    stringFromUser += e.key;
+                    main.textContent = stringFromUser.replace('-', ' - ');
+                } else if(!stringFromUser){
                     stringFromUser += `${result}-`;
                     main.textContent = stringFromUser.replace('-', ' - ');
                     pointCounter = 0;
@@ -97,7 +109,6 @@ window.addEventListener('keydown', function(e){
                     stringFromUser += '-';
                     main.textContent += ' - ';
                     pointCounter = 0;
-
                 }
             
             break;
@@ -214,7 +225,8 @@ function processParsedString(parsedArray){
     for(let i = 1; i < parsedArray.length; i += 2){
         const operator = parsedArray[i];
         const next = parsedArray[i+1];
-        total = calculate[operator](total,+next) || 'Error';
+        total = calculate[operator](total,+next);
+        total = isNaN(total) ? 'Error' : total;
     }
     return total;
 }
