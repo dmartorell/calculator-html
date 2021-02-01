@@ -28,12 +28,10 @@ let stringFromUser = '';
 let lastResult;
 let pointCounter = 0;
 let result;
-let isScreenClear = true;
 
 window.addEventListener('keydown', function(e){
     let lastChar = stringFromUser.charAt(stringFromUser.length - 1);
-    if(isValid(e.key, lastChar, pointCounter) && !isEnter(e.key)){
-        isScreenClear = false;
+    if(isValid(e.key, lastChar, pointCounter)){
         
         switch(e.key){
             
@@ -64,7 +62,7 @@ window.addEventListener('keydown', function(e){
                     pointCounter = 0;
                 } else {
                     stringFromUser += '*';
-                    main.textContent += ' x*4 ';
+                    main.textContent += ' x ';
                     pointCounter = 0;
                 }
                 
@@ -125,11 +123,10 @@ window.addEventListener('keydown', function(e){
             case 'Backspace':
                
                 if(stringFromUser.length <= 1){
-                    clearScreen();
+                    screenToZero();
                     resetStringFromUser();
                     resetResult();
                     pointCounter = 0;
-
                 }
                 else {
                     if(lastChar === '.'){
@@ -145,6 +142,25 @@ window.addEventListener('keydown', function(e){
                 
             break;
             
+            case 'Enter':
+                //////////// ENTER KEY or =
+
+            if(!stringFromUser) {  // usuario aprieta intro sobre un resultado ya dado.
+                main.textContent = result;
+                pointCounter = 0;
+            } 
+        
+            else if(stringFromUser){
+                const parsedString = parseString(stringFromUser);
+                result = processParsedString (parsedString);
+                stringFromUser = '';
+                main.textContent = result;
+                // lastResult = result;
+                pointCounter = 0;
+            }
+    
+            break;
+            
             default:
                 
             if(!stringFromUser){
@@ -157,27 +173,6 @@ window.addEventListener('keydown', function(e){
             }
         }
     }
-    
-
-
-
-//////////// ENTER KEY or =
-
-    if(isEnter(e.key)){
-        if(!stringFromUser) {  // usuario aprieta intro sobre un resultado ya dado.
-            main.textContent = result;
-            pointCounter = 0;
-        } 
-        
-        else if(stringFromUser){
-            const parsedString = parseString(stringFromUser);
-            result = processParsedString (parsedString);
-            stringFromUser = '';
-            main.textContent = result;
-            // lastResult = result;
-            pointCounter = 0;
-        }
-    }
 });
 
 function resetStringFromUser(){
@@ -186,6 +181,11 @@ function resetStringFromUser(){
 function resetResult(){
     return result = 0;
 }
+
+function screenToZero(){
+    return main.textContent = 0;
+}
+
 function clearScreen(){
     main.textContent = 0;
     return;
@@ -198,9 +198,10 @@ function isEnter(key){
 function isValid(key, lastChar, pointCounter){
 
     if (!OPERANDS.has(key) && !OPERATORS.has(key) && !SPECIAL_KEYS.has(key)) return false;
-    if ((key === ',' || key === '.') && pointCounter > 0) {
-        return false; 
-    }
+    if ((key === ',' || key === '.') && pointCounter > 0) return false; 
+    if (OPERATORS.has(lastChar) && key === 'Enter') return false;
+
+    
     if (key === '*' && lastChar === '*') return false;
     if (key === '/' && lastChar === '/') return false;
     if (key === '+' && lastChar === '+') return false;
