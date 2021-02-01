@@ -3,8 +3,6 @@
 // Cuando result = ERROR o INIFINITY or -INFINITY qué pasa si intentas seguir haciendo operaciones. 
 // BOTÓN DE +/-
 
-
-
 const main = document.querySelector('#main');
 const OPERATORS = new Set([  '/', '*', '+', '-', '%' ]); 
 const OPERANDS = new Set([ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ]);
@@ -60,7 +58,6 @@ window.addEventListener('keydown', function(e){
                     stringFromUser += '*';
                     main.textContent += ' x ';
                     pointCounter = 0;
-
                 }
                 
             break;
@@ -68,11 +65,11 @@ window.addEventListener('keydown', function(e){
 
                 if(!stringFromUser){
                     stringFromUser += `${result}/`;
-                    main.textContent = stringFromUser;
+                    main.textContent = stringFromUser.replace('/', ' ÷ ');
                     pointCounter = 0;
                 } else {
                     stringFromUser += '/';
-                    main.textContent = stringFromUser;
+                    main.textContent += ' ÷ ';
                     pointCounter = 0;
                 }
             
@@ -81,11 +78,11 @@ window.addEventListener('keydown', function(e){
             
                 if(!stringFromUser){
                     stringFromUser += `${result}+`;
-                    main.textContent = stringFromUser;
+                    main.textContent = stringFromUser.replace('+', ' + ');
                     pointCounter = 0;
                 } else {
                     stringFromUser += '+';
-                    main.textContent = stringFromUser;
+                    main.textContent += ' + ';
                     pointCounter = 0;
 
                 }
@@ -94,11 +91,11 @@ window.addEventListener('keydown', function(e){
 
                 if(!stringFromUser){
                     stringFromUser += `${result}-`;
-                    main.textContent = stringFromUser;
+                    main.textContent = stringFromUser.replace('-', ' - ');
                     pointCounter = 0;
                 } else {
                     stringFromUser += '-';
-                    main.textContent = stringFromUser;
+                    main.textContent += ' - ';
                     pointCounter = 0;
 
                 }
@@ -108,13 +105,12 @@ window.addEventListener('keydown', function(e){
 
                 if(!stringFromUser){
                     stringFromUser += `${result}%`;
-                    main.textContent = stringFromUser;
+                    main.textContent = stringFromUser.replace('%', ' % ');
                     pointCounter = 0;
                 } else {
                     stringFromUser += '%';
-                    main.textContent = stringFromUser;
+                    main.textContent += ' % ';
                     pointCounter = 0;
-
                 }
             
             break;
