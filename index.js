@@ -143,6 +143,9 @@ window.addEventListener('keydown', function(e){
                     if(lastChar === '.'){
                         pointCounter = 0;
                     } 
+                    if(OPERATORS.has(lastChar)){
+                        main.textContent = main.textContent.slice(0,-2);
+                    }
 
                     stringFromUser = stringFromUser.slice(0,-1);
                     main.textContent = main.textContent.slice(0,-1);
