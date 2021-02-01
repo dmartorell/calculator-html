@@ -52,7 +52,7 @@ window.addEventListener('keydown', function(e){
             case '.':
                 if(!OPERANDS.has(lastChar)){
                     stringFromUser += '0.';
-                    main.textContent += '0.'
+                    main.textContent = '0.'
                 } else {
                     stringFromUser += '.';
                     main.textContent += '.';
