@@ -36,8 +36,8 @@ function processParsedString(parsedArray){
     return total;
 }
 
-let parsed = (parseString('Infinity*2'));
-parsed;
+let parsed = (parseString('3+2%'));
+console.log(parsed);;
 console.log(processParsedString(parsed));
 
 // let parced = (parseString('25*2+4-3'));

@@ -5,7 +5,6 @@
 // USO DEL %   ??
 
 
-const main = document.querySelector('#main');
 const OPERATORS = new Set([  '/', '*', '+', '-', '%' ]); 
 const OPERANDS = new Set([ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ]);
 const SPECIAL_KEYS = new Set([ 'Enter', 'Backspace', '=', '.', ',' ]);
@@ -17,10 +16,19 @@ const calculate = {
     '%' : (a) => a / 100, 
 }
 
+const main = document.querySelector('#main');
+const equals = document.querySelector('#main');
+
+
 let stringFromUser = '';
 let lastResult;
 let pointCounter = 0;
 let result;
+
+window.addEventListener('click', function(e){
+    console.log(e.target.value);
+
+})
 
 window.addEventListener('keydown', function(e){
     let lastChar = stringFromUser.charAt(stringFromUser.length - 1);
@@ -171,6 +179,7 @@ window.addEventListener('keydown', function(e){
 function resetStringFromUser(){
     return stringFromUser = '';
 }
+
 function resetResult(){
     return result = 0;
 }
