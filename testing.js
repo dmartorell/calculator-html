@@ -8,7 +8,7 @@ const calculate = {
 }
 
 function parseString(str){
-    const regex = /(?<operand>[+\-]?\d*\.?\d+)(?<operator>[/*+\-%])?/g;
+    const regex = /(?<operand>Infinity|[+\-]?\d*\.?\d+)(?<operator>[/*+\-%])?/g;
     let matches = [];
     const output = [];
     let match;
@@ -36,7 +36,8 @@ function processParsedString(parsedArray){
     return total;
 }
 
-let parsed = (parseString('-'));
+let parsed = (parseString('Infinity*2'));
+parsed;
 console.log(processParsedString(parsed));
 
 // let parced = (parseString('25*2+4-3'));
