@@ -1,15 +1,9 @@
 
 // TODOS ******
 
-// Cuando result = ERROR o INIFINITY or -INFINITY qué pasa si intentas seguir haciendo operaciones. 
 // BOTÓN DE +/-
-// USO DEL %
-// DISPLAY EN '0' O 'RESULTADO' : SI USUARIO INTRODUCE OPERADORES SE SUMAN AL '0'.
-// SI USUARIO INTRODUCE OPERADOR SEGUIDO DE OPERADOR HAY REGLAS:
-            // SE MANTIENEN AMBOS SI EL PRIMEROS ES '*' O '÷' Y EL SEGUNDO ES '-'
-            // TEST: '12÷-2' = -6  PROGRAMA FUNCIONA OK
-            // TEST: '12*-2  = -24 PROGRAMA FUNCIONA OK
-            // SE ELIMINA EL PRIMERO SI EL PRIMEROS ES '*' O '÷' Y EL SEGUNDO ES '+'
+// USO DEL %   ??
+
 
 const main = document.querySelector('#main');
 const OPERATORS = new Set([  '/', '*', '+', '-', '%' ]); 
