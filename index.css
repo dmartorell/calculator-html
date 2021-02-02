@@ -10,6 +10,17 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 
 }
+button {
+    background-color: transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid rgb(22, 56, 89, 0.1);
+    transition: 100ms background-color;
+
+
+}
+button:focus { outline: none; }
+button:hover { background-color: rgba(3, 190, 113, 0.5); }
 
 .device {
     display: flex;
@@ -25,7 +36,7 @@ body {
     background: rgb(116,228,224);
     background: -moz-linear-gradient(32deg, rgba(116,228,224,1) 0%, rgba(3,21,62,1) 74%);
     background: -webkit-linear-gradient(32deg, rgba(116,228,224,1) 0%, rgba(3,21,62,1) 74%);
-    background: linear-gradient(32deg, rgba(116,228,224,1) 0%, rgba(3,21,62,1) 74%);
+    background: linear-gradient(32deg, rgba(16,228,224,1) 0%, rgba(3,21,62,1) 75%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#74e4e0",endColorstr="#03153e",GradientType=1);
 }
 #main {
@@ -46,7 +57,6 @@ body {
     color: beige;
     text-align: right;
 
-
 }
 .keys {
     /* display: flex; */
@@ -62,7 +72,6 @@ body {
     align-items: center;
     justify-content: center;
     color: beige;
-    border: 1px solid #2F6A7F;
     padding: 20px 20px;
     margin-left: 3px;
     margin-right: 3px;
