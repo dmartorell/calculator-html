@@ -1,7 +1,6 @@
 
 // TODOS ******
 
-// '12 x intro' === error, debería devovler 12x12. 
 // Cuando result = ERROR o INIFINITY or -INFINITY qué pasa si intentas seguir haciendo operaciones. 
 // BOTÓN DE +/-
 // USO DEL %
@@ -96,7 +95,7 @@ window.addEventListener('keydown', function(e){
             case '-':
 
                 if(!stringFromUser){
-                    stringFromUser += result ? `${result}+` : '0-';
+                    stringFromUser += result ? `${result}-` : '0-';
                     main.textContent = stringFromUser.replace('-', ' - ');
                     pointCounter = 0;
                 } else {
@@ -213,7 +212,7 @@ function isValid(key, lastChar, pointCounter){
 
 function parseString(str){
 
-    const regex = /(?<operand>[+\-]?\d{0,}\.?\d+)(?<operator>[/*+\-%])?/g;
+    const regex = /(?<operand>Infinity|[+\-]?\d*\.?\d+)(?<operator>[/*+\-%])?/g;
     let matches = [];
     const output = [];
     let match;
