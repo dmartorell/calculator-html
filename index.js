@@ -17,24 +17,28 @@ const calculate = {
 }
 
 const main = document.querySelector('#main');
-const equals = document.querySelector('#main');
-
 
 let stringFromUser = '';
 let lastResult;
 let pointCounter = 0;
 let result;
 
-window.addEventListener('click', function(e){
-    console.log(e.target.value);
+// window.addEventListener('click', computeInput);
 
-})
+// function consoleKey(e){
+//     const value = e.target.value;
+//     computeInput(keyValue);
+// }
 
-window.addEventListener('keydown', function(e){
+window.addEventListener('keydown', computeInput);
+
+
+function computeInput(e){
+    const value = e.key || e.target.value;
     let lastChar = stringFromUser.charAt(stringFromUser.length - 1);
-    if(isValid(e.key, lastChar, pointCounter)){
+    if(isValid(value, lastChar, pointCounter)){
         
-        switch(e.key){
+        switch(value){
             
             case ',':
             case '.':
@@ -147,13 +151,15 @@ window.addEventListener('keydown', function(e){
                 //////////// ENTER KEY or =
 
             if(!stringFromUser) {  // usuario aprieta intro sobre un resultado ya dado.
-                main.textContent = result;
+                main.textContent = result || '0';   // Sin la segunda opción, si el usuario pulsa intro sobre el 0 inicial este desaparece
                 pointCounter = 0;
             } 
         
             else if(stringFromUser){
                 const parsedString = parseString(stringFromUser);
+                console.log(parsedString);
                 result = processParsedString (parsedString);
+                console.log({result});
                 stringFromUser = '';
                 main.textContent = result;
                 // lastResult = result;
@@ -165,16 +171,16 @@ window.addEventListener('keydown', function(e){
             default:
                 
             if(!stringFromUser){
-                stringFromUser += e.key;
-                main.textContent = e.key;
+                stringFromUser += value;
+                main.textContent = value;
             }
             else {
-                stringFromUser += e.key;
-                main.textContent += e.key;
+                stringFromUser += value;
+                main.textContent += value;
             }
         }
     }
-});
+};
 
 function resetStringFromUser(){
     return stringFromUser = '';
