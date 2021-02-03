@@ -1,4 +1,3 @@
-
 // TODOS ******
 
 // BOTÓN DE +/-
@@ -23,12 +22,7 @@ let lastResult;
 let pointCounter = 0;
 let result;
 
-// window.addEventListener('click', computeInput);
-
-// function consoleKey(e){
-//     const value = e.target.value;
-//     computeInput(keyValue);
-// }
+window.addEventListener('click', computeInput);
 
 window.addEventListener('keydown', computeInput);
 
