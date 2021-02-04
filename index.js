@@ -138,7 +138,6 @@ function computeInput(e){
                     stringFromUser = stringFromUser.slice(0,-1);
                     main.textContent = main.textContent.slice(0,-1);
                 }
-                
             break;
             
             case 'Enter':
@@ -172,6 +171,7 @@ function computeInput(e){
                 stringFromUser += value;
                 main.textContent += value;
             }
+
         }
     }
 };
