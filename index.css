@@ -1,5 +1,10 @@
-*, *:before, *:after {
+*, *::before, *::after {
     box-sizing: border-box;
+    font-family: 'Quicksand', Arial;
+    font-weight:100;
+    font-size: 0.9rem;
+    color: rgb(238, 238, 238)
+
 }
 
 body {
@@ -7,83 +12,66 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: Arial, Helvetica, sans-serif;
-
 }
-button {
-    background-color: transparent;
-    border-radius: 3px;
-    cursor: pointer;
-    border: 1px solid rgb(22, 56, 89, 0.1);
-    transition: 100ms background-color;
-
-
-}
-button:focus { outline: none; }
-button:hover { background-color: rgba(3, 190, 113, 0.5); }
 
 .device {
-    display: flex;
-    flex-direction: column;
-
-    /* border: 1px solid aqua; */
-    width: 400px;
-    height: 500px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-
-    /* GRADIENT */
-    background: rgb(116,228,224);
-    background: -moz-linear-gradient(32deg, rgba(116,228,224,1) 0%, rgba(3,21,62,1) 74%);
-    background: -webkit-linear-gradient(32deg, rgba(116,228,224,1) 0%, rgba(3,21,62,1) 74%);
-    background: linear-gradient(32deg, rgba(16,228,224,1) 0%, rgba(3,21,62,1) 75%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#74e4e0",endColorstr="#03153e",GradientType=1);
+    display: grid;
+    margin-top: 50px;
+    grid-template-columns: repeat(4, 60px);
+    grid-template-rows: minmax(110px, auto) repeat(5, 70px);
+    background: linear-gradient(32deg, rgba(16,228,224,1) 0%, rgba(3,21,62,1) 78%);
+    border-radius: 18px;
 }
-#main {
-    font-size: 2.5em;
-    margin-right: 10px;
-    margin-top: 10px;   
-}
-#operations {
-    margin-right: 10px; 
-    margin-top: 10px;
-    font-size: 0.7em;
 
+button {
+    cursor: pointer;
+    font-size: 1.2rem;
+    border: 1px solid rgb(22, 56, 89, 0.1);
+    outline: none;
+    background-color: transparent;
+    transition: 100ms;
 }
+
+button:hover { border-color: rgba(3, 190, 134, 0.3); } 
+
+button:last-child {
+    border-bottom-right-radius: 18px;
+}
+
+button:nth-last-child(3) {
+    border-bottom-left-radius: 18px;
+}
+
+.bg-size {
+    font-size: 1.6rem;
+    padding-bottom: 5px;
+}
+
+.lighter-col { background-color: rgba(238, 238, 238, 0.1) }
+.light-col { background-color: rgba(238, 238, 238, 0.03) }
+
+.doble-size {
+    grid-column: span 2;
+  }
+
 .screen {
-    height: 125px;
-    /* border: 1px solid antiquewhite; */
-    margin: 10px 10px;
-    color: beige;
-    text-align: right;
-
-}
-.keys {
-    /* display: flex; */
-    height: 100%;
-    /* border: 2px solid red; */
-    margin: 10px 10px;
-    flex-wrap: wrap;
-    justify-items: flex-end;
-}
-
-.key {
+    grid-column: 1 / -1;
+    background-color: transparent;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: beige;
-    padding: 20px 20px;
-    margin-left: 3px;
-    margin-right: 3px;
-    
-    
-}
-.row {
-    display: flex;
-    justify-content: stretch;
-    margin: 3px;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
+.screen .current-operand {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 2.5rem;
+}
 
-
-
+.screen .previous-operand {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+}
