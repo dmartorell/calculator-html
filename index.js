@@ -1,16 +1,63 @@
 
+// TODOS
+
+// decimales largos fixed a 10, por ejemplo
+// decimales con múltiples ceros: 118.80000000000001 debería ser 118.8
+
 let currentOperationValue = '';
 let previousOperationValue = '';
 let currentOperationDisplay = document.querySelector('.current-op');
 let previousOperationDisplay = document.querySelector('.previous-op');
+let currentOperator = '';
 
-const numKeys = document.querySelectorAll('.number');
+const clearKey = document.querySelector('.clear');
+const numberKeys = document.querySelectorAll('.number');
+const operatorKeys = document.querySelectorAll('.operator')
+const equalKey = document.querySelector('.equals');
 
-numKeys.forEach(key => key.addEventListener('click', addNumToCurrent));
+numberKeys.forEach(key => key.addEventListener('click', addNumToCurrent));
 
+operatorKeys.forEach(key => key.addEventListener('click', () => {
+    currentOperator = key.textContent;
+    previousOperationValue = currentOperationValue;
+    currentOperationValue = '';
+    updateScreen();
+}));
+
+clearKey.addEventListener('click', clear);
+
+equalKey.addEventListener('click', ()=> {
+    compute();
+})
+
+function compute(){
+    let result;
+    switch(currentOperator){
+        case 'x':
+            result = Number(previousOperationValue) * Number(currentOperationValue);
+        break;
+        case '÷':
+            result = Number(previousOperationValue) / Number(currentOperationValue);
+        break;
+        case '+':
+            result = Number(previousOperationValue) + Number(currentOperationValue);
+        break;
+        case '-':
+            result = Number(previousOperationValue) - Number(currentOperationValue);
+        break;
+
+    }
+    previousOperationValue = '';
+    currentOperator = '';
+    currentOperationValue = result.toString();
+    updateScreen();
+
+}
 function clear(){
     currentOperationValue = '';
     previousOperationValue = '';
+    currentOperator = '';
+    updateScreen();
 }
 
 function addNumToCurrent(key){
@@ -18,13 +65,13 @@ function addNumToCurrent(key){
     if(num === '.' && currentOperationValue.includes('.')){
         return;
     } else {
-        currentOperationValue += key.target.textContent;
-        updateScreen(currentOperationValue);
+        currentOperationValue += num;
+        updateScreen();
     }
 }
-function updateScreen(value){
-    currentOperationDisplay.textContent = value;
-
+function updateScreen(){
+    currentOperationDisplay.textContent = currentOperationValue;
+    previousOperationDisplay.textContent = previousOperationValue + ' ' + currentOperator;
 }
 
 
