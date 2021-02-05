@@ -80,7 +80,7 @@ function compute(){
             return;
 
     }
-    result = result.toFixed(9);
+    result = +result.toFixed(2);
     return result.toString();
 }
 function clear(){
@@ -101,9 +101,8 @@ function addNumToCurrent(key){
 }
 function updateScreen(){
     currentOperationDisplay.textContent = currentOperationValue;
-    previousOperationDisplay.textContent = previousOperationValue + ' ' + currentOperator;
+    previousOperationDisplay.textContent = `${previousOperationValue} ${currentOperator}`;
 }
-
 
 /*function parseString(str){
 
