@@ -15,19 +15,47 @@ const numberKeys = document.querySelectorAll('.number');
 const operatorKeys = document.querySelectorAll('.operator')
 const equalKey = document.querySelector('.equals');
 
-numberKeys.forEach(key => key.addEventListener('click', addNumToCurrent));
+numberKeys.forEach(key => key.addEventListener('click', ()=> {
+    addNumToCurrent(key);
+}));
 
 operatorKeys.forEach(key => key.addEventListener('click', () => {
+    if(previousOperationValue){
+        let result = compute();
+        previousOperationValue = result;
+        
+        if(isNaN(result)){
+            currentOperationValue = 'Error';
+            previousOperationValue = '';
+            currentOperator = '';
+
+        }
+        else {
+        currentOperationValue = '';
+        currentOperator = key.textContent;
+        }
+        updateScreen();
+
+    } else {
     currentOperator = key.textContent;
     previousOperationValue = currentOperationValue;
     currentOperationValue = '';
     updateScreen();
+    }
 }));
 
 clearKey.addEventListener('click', clear);
 
 equalKey.addEventListener('click', ()=> {
-    compute();
+    let result = compute();
+    previousOperationValue = '';
+    currentOperator = '';
+    if(isNaN(result)){
+        currentOperationValue = 'Error';
+    } else {
+        currentOperationValue = result;
+    }
+    updateScreen();
 })
 
 function compute(){
@@ -46,12 +74,11 @@ function compute(){
             result = Number(previousOperationValue) - Number(currentOperationValue);
         break;
 
-    }
-    previousOperationValue = '';
-    currentOperator = '';
-    currentOperationValue = result.toString();
-    updateScreen();
+        default:
+            return;
 
+    }
+    return result.toString();
 }
 function clear(){
     currentOperationValue = '';
@@ -61,7 +88,7 @@ function clear(){
 }
 
 function addNumToCurrent(key){
-    const num = key.target.textContent;
+    const num = key.textContent;
     if(num === '.' && currentOperationValue.includes('.')){
         return;
     } else {
