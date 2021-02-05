@@ -3,6 +3,7 @@
 
 // decimales largos fixed a 10, por ejemplo
 // decimales con múltiples ceros: 118.80000000000001 debería ser 118.8
+// poder cambiar de opinión respecto al operador usando otros operadores no solo backspace.
 
 let currentOperationValue = '';
 let previousOperationValue = '';
@@ -16,24 +17,19 @@ const operatorKeys = document.querySelectorAll('.operator')
 const equalKey = document.querySelector('.equals');
 
 numberKeys.forEach(key => key.addEventListener('click', ()=> {
+    if(currentOperationValue === 'Error') clear();
     addNumToCurrent(key);
 }));
 
 operatorKeys.forEach(key => key.addEventListener('click', () => {
+    if(currentOperationValue === 'Error') clear();
+    if(!currentOperationValue) return
+    if(currentOperationValue === '.') return;
     if(previousOperationValue){
         let result = compute();
         previousOperationValue = result;
-        
-        if(isNaN(result)){
-            currentOperationValue = 'Error';
-            previousOperationValue = '';
-            currentOperator = '';
-
-        }
-        else {
         currentOperationValue = '';
         currentOperator = key.textContent;
-        }
         updateScreen();
 
     } else {
@@ -47,6 +43,12 @@ operatorKeys.forEach(key => key.addEventListener('click', () => {
 clearKey.addEventListener('click', clear);
 
 equalKey.addEventListener('click', ()=> {
+    if(!currentOperationValue) return;
+    if(!previousOperationValue){
+        clear();
+        return;
+    }
+
     let result = compute();
     previousOperationValue = '';
     currentOperator = '';
@@ -78,6 +80,7 @@ function compute(){
             return;
 
     }
+    result = result.toFixed(9);
     return result.toString();
 }
 function clear(){
