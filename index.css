@@ -4,7 +4,6 @@
     font-weight:100;
     font-size: 0.9rem;
     color: rgb(238, 238, 238)
-
 }
 
 body {
@@ -18,18 +17,20 @@ body {
     display: grid;
     margin-top: 50px;
     grid-template-columns: repeat(4, 60px);
-    grid-template-rows: minmax(110px, auto) repeat(5, 70px);
+    grid-template-rows: minmax(120px, auto) repeat(5, 65px); /* minmax hace referencia a la primera row, la pantalla. El auto premite que siga creciendo a medida que aumenta la cantidad de números*/ 
     background: linear-gradient(32deg, rgb(12, 179, 176) 0%, rgba(3,21,62,1) 78%);
     border-radius: 18px;
     box-shadow: rgba(17, 17, 26, 0.3) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    cursor: pointer;
+
 }
 button {
-    cursor: pointer;
     font-size: 1.2rem;
     border: 1px solid rgb(22, 56, 89, 0.05);
     outline: none;
     background-color: transparent;
     transition: 100ms;
+    cursor: pointer;
 }
 
 button:hover { border-color: rgba(3, 190, 134, 0.3); } 
@@ -55,7 +56,7 @@ button:nth-last-child(3) {
   }
 
 .screen {
-    grid-column: 1 / -1;
+    grid-column: 1 / 5;
     background-color: transparent;
     display: flex;
     align-items: flex-end;
