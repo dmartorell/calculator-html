@@ -1,9 +1,8 @@
 
 // TODOS
 
-// decimales largos fixed a 10, por ejemplo
-// decimales con múltiples ceros: 118.80000000000001 debería ser 118.8
 // poder cambiar de opinión respecto al operador usando otros operadores no solo backspace.
+// format números (separación con puntos y comas)
 
 let currentOperationValue = '';
 let previousOperationValue = '';
@@ -12,9 +11,10 @@ let previousOperationDisplay = document.querySelector('.previous-op');
 let currentOperator = '';
 
 const clearKey = document.querySelector('.clear');
+const delKey = document.querySelector('.delete');
 const numberKeys = document.querySelectorAll('.number');
 const operatorKeys = document.querySelectorAll('.operator')
-const equalKey = document.querySelector('.equals');
+const equalsKey = document.querySelector('.equals');
 
 numberKeys.forEach(key => key.addEventListener('click', ()=> {
     if(currentOperationValue === 'Error') clear();
@@ -41,14 +41,17 @@ operatorKeys.forEach(key => key.addEventListener('click', () => {
 }));
 
 clearKey.addEventListener('click', clear);
-
-equalKey.addEventListener('click', ()=> {
-    if(!currentOperationValue) return;
-    if(!previousOperationValue){
-        clear();
-        return;
+delKey.addEventListener('click', () => {
+    if(currentOperationValue){
+        currentOperationValue = currentOperationValue.slice(0,-1);
+        updateScreen();
     }
+});
 
+equalsKey.addEventListener('click', ()=> {
+    if(!currentOperationValue) return;
+    if(!previousOperationValue) return;
+    
     let result = compute();
     previousOperationValue = '';
     currentOperator = '';
@@ -101,6 +104,8 @@ function addNumToCurrent(key){
 }
 function updateScreen(){
     currentOperationDisplay.textContent = currentOperationValue;
+    // currentOperationDisplay.textContent = new Intl.NumberFormat('sp-SP').format(currentOperationValue);
+
     previousOperationDisplay.textContent = `${previousOperationValue} ${currentOperator}`;
 }
 

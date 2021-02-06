@@ -65,11 +65,13 @@ button:nth-last-child(3) {
     padding: 10px;
     word-wrap: break-word;
     word-break: break-all;
+    padding: 0px 20px 0px 20px;
 }
 
 .screen .current-op {
     color: rgba(255, 255, 255, 0.9);
     font-size: 2.5rem;
+
 }
 
 .screen .previous-op {
