@@ -1,6 +1,6 @@
 
 // TODOS
-// format números (separación con puntos y comas)
+// format números (separación con puntos y comas) : Intl.NumberFormat
 // Entrada input por teclado;
 
 let currentOperationValue = '';
@@ -121,8 +121,6 @@ function addNumToCurrent(key){
 }
 function updateScreen(){
     currentOperationDisplay.textContent = currentOperationValue;
-    // currentOperationDisplay.textContent = new Intl.NumberFormat('sp-SP', {style: 'decimal'}).format(currentOperationValue);
-
     previousOperationDisplay.textContent = `${previousOperationValue} ${currentOperator}`;
 }
 
