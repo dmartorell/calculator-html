@@ -9,6 +9,7 @@ let previousOperationValue = '';
 let currentOperationDisplay = document.querySelector('.current-op');
 let previousOperationDisplay = document.querySelector('.previous-op');
 let currentOperator = '';
+let isEqualsLastKey = false;
 
 const clearKey = document.querySelector('.clear');
 const delKey = document.querySelector('.delete');
@@ -17,11 +18,13 @@ const operatorKeys = document.querySelectorAll('.operator')
 const equalsKey = document.querySelector('.equals');
 
 numberKeys.forEach(key => key.addEventListener('click', ()=> {
-    if(currentOperationValue === 'Error') clear();
+    if(currentOperationValue === 'Error' || isEqualsLastKey) clear();
+    isEqualsLastKey = false;
     addNumToCurrent(key);
 }));
 
 operatorKeys.forEach(key => key.addEventListener('click', () => {
+    isEqualsLastKey = false;
     if(currentOperationValue === 'Error') clear();
     if(!currentOperationValue) return
     if(currentOperationValue === '.') return;
@@ -49,6 +52,7 @@ delKey.addEventListener('click', () => {
 });
 
 equalsKey.addEventListener('click', ()=> {
+    isEqualsLastKey = true;
     if(!currentOperationValue) return;
     if(!previousOperationValue) return;
     
