@@ -41,7 +41,7 @@ delKey.addEventListener('click', () => {
 
 equalsKey.addEventListener('click', ()=> {
     isEqualsLastKey = true;
-    if(currentOperationValue === '0.'){
+    if(currentOperationValue.slice(-1) === '.'){
         isEqualsLastKey = false;
         return;
     }
