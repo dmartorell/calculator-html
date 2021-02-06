@@ -60,7 +60,10 @@ delKey.addEventListener('click', () => {
 
 equalsKey.addEventListener('click', ()=> {
     isEqualsLastKey = true;
-    if(!currentOperationValue) return;
+    if(!currentOperationValue) {
+        isEqualsLastKey = false;
+        return;
+    }
     if(!previousOperationValue) return;
     
     let result = compute();
