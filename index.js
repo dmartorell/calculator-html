@@ -25,6 +25,7 @@ numberKeys.forEach(key => key.addEventListener('click', ()=> {
 
 operatorKeys.forEach(key => key.addEventListener('click', () => {
     isEqualsLastKey = false;
+    if(!currentOperationValue && !previousOperationValue) return;
     if(currentOperationValue === 'Error') clear();
     if(!currentOperationValue){
 
