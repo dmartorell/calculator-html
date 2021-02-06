@@ -1,7 +1,7 @@
 
 // TODOS
-
 // format números (separación con puntos y comas)
+// Entrada input por teclado;
 
 let currentOperationValue = '';
 let previousOperationValue = '';
@@ -121,7 +121,7 @@ function addNumToCurrent(key){
 }
 function updateScreen(){
     currentOperationDisplay.textContent = currentOperationValue;
-    // currentOperationDisplay.textContent = new Intl.NumberFormat('sp-SP').format(currentOperationValue);
+    // currentOperationDisplay.textContent = new Intl.NumberFormat('sp-SP', {style: 'decimal'}).format(currentOperationValue);
 
     previousOperationDisplay.textContent = `${previousOperationValue} ${currentOperator}`;
 }
