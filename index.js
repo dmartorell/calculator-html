@@ -1,7 +1,6 @@
 
 // TODOS
 
-// poder cambiar de opinión respecto al operador usando otros operadores no solo backspace.
 // format números (separación con puntos y comas)
 
 let currentOperationValue = '';
@@ -112,6 +111,9 @@ function addNumToCurrent(key){
     const num = key.textContent;
     if(num === '.' && currentOperationValue.includes('.')){
         return;
+    } else if(num === '.' && !currentOperationValue){
+        currentOperationValue = '0.';
+        updateScreen();
     } else {
         currentOperationValue += num;
         updateScreen();

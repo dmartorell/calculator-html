@@ -63,7 +63,6 @@ button:nth-last-child(3) {
     justify-content: space-around;
     flex-direction: column;
     padding: 10px;
-    word-wrap: break-word;
     word-break: break-all;
     padding: 0px 20px 0px 20px;
 }
