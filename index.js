@@ -27,6 +27,7 @@ operatorKeys.forEach(key => key.addEventListener('click', () => {
     isEqualsLastKey = false;
     if(currentOperationValue === 'Error') clear();
     if(!currentOperationValue){
+
         currentOperator = key.textContent;
         updateScreen();
         return;
@@ -49,9 +50,11 @@ operatorKeys.forEach(key => key.addEventListener('click', () => {
 
 clearKey.addEventListener('click', clear);
 delKey.addEventListener('click', () => {
-    if(currentOperationValue){
+    if(currentOperationValue && !isEqualsLastKey){
         currentOperationValue = currentOperationValue.slice(0,-1);
         updateScreen();
+    } else {
+        clear();
     }
 });
 
