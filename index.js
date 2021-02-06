@@ -20,7 +20,7 @@ const equalsKey = document.querySelector('.equals');
 numberKeys.forEach(key => key.addEventListener('click', ()=> {
     if(currentOperationValue === 'Error' || isEqualsLastKey) clear();
     isEqualsLastKey = false;
-    addNumToCurrent(key);
+    addNumToCurrentOperation(key);
 }));
 
 operatorKeys.forEach(key => key.addEventListener('click', () => {
@@ -117,7 +117,7 @@ function clear(){
     updateScreen();
 }
 
-function addNumToCurrent(key){
+function addNumToCurrentOperation(key){
     const num = key.textContent;
     if(num === '.' && currentOperationValue.includes('.')){
         return;
