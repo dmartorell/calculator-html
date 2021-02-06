@@ -46,10 +46,12 @@ equalsKey.addEventListener('click', ()=> {
         return;
     }
     if(!currentOperationValue) {
+        return;
+    }
+    if(!previousOperationValue){
         isEqualsLastKey = false;
         return;
     }
-    if(!previousOperationValue) return;
     
     let result = compute();
     previousOperationValue = '';
