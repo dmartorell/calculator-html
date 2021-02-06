@@ -26,7 +26,11 @@ numberKeys.forEach(key => key.addEventListener('click', ()=> {
 operatorKeys.forEach(key => key.addEventListener('click', () => {
     isEqualsLastKey = false;
     if(currentOperationValue === 'Error') clear();
-    if(!currentOperationValue) return
+    if(!currentOperationValue){
+        currentOperator = key.textContent;
+        updateScreen();
+        return;
+    } 
     if(currentOperationValue === '.') return;
     if(previousOperationValue){
         let result = compute();
