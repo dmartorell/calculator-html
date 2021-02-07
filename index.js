@@ -10,7 +10,7 @@
 let currentOperationValue = '';
 let previousOperationValue = '';
 let currentOperator = '';
-let isEqualsLastKey = false;
+let lastKey = null;
 
 let currentOperationDisplay = document.querySelector('.current-op');
 let previousOperationDisplay = document.querySelector('.previous-op');
@@ -22,20 +22,20 @@ const operatorKeys = document.querySelectorAll('.operator')
 const equalsKey = document.querySelector('.equals');
 
 numberKeys.forEach(key => key.addEventListener('click', ()=> {
-    if(currentOperationValue === 'Error' || isEqualsLastKey) clear();
-    isEqualsLastKey = false;
+    if(currentOperationValue === 'Error' || lastKey === '=') clear();
+    lastKey = false;
     addNumToCurrentOperation(key);
 }));
 
 operatorKeys.forEach(key => key.addEventListener('click', () => {
-    isEqualsLastKey = false;
+    lastKey = null;
     addOperator(key);
 }));
 
 clearKey.addEventListener('click', clear);
 
 delKey.addEventListener('click', () => {
-    if(currentOperationValue && !isEqualsLastKey){
+    if(currentOperationValue && lastKey !== '='){
         currentOperationValue = currentOperationValue.slice(0,-1);
         updateScreen();
     } else {
@@ -44,16 +44,15 @@ delKey.addEventListener('click', () => {
 });
 
 equalsKey.addEventListener('click', ()=> {
-    isEqualsLastKey = true;
+    lastKey = '=';
     if(currentOperationValue.slice(-1) === '.'){
-        isEqualsLastKey = false;
+        lastKey = null;
         return;
     }
     if(!currentOperationValue) {
         return;
     }
     if(!previousOperationValue){
-        isEqualsLastKey = false;
         return;
     }
     
