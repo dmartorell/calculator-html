@@ -1,7 +1,11 @@
 
 // TODOS:
+// Poder colocar símbolo negativo 
 // format números (separación con puntos y comas) : Intl.NumberFormat
 // Entrada input por teclado;
+// Número + operador + '='   ------> 2+= 4; 2-= 0; 2x= 4; 2÷= 1;
+// Presionar '=' otra vez después de una operación ------> 5-1 = 4 = 3 = 2 = 1...
+
 
 let currentOperationValue = '';
 let previousOperationValue = '';
