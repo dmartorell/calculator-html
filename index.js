@@ -138,7 +138,7 @@ function isValidEquals(){
 }
 
 function isValidOperator(key){
-    if(!currentOperationValue && !previousOperationValue || currentOperationValue === '0.') return false;
+    if(!currentOperationValue && !previousOperationValue || currentOperationValue.slice(-1) === '.') return false;
     if(currentOperationValue === 'Error'){
         clearOperations();
         return false;
