@@ -4,48 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
-    <title>Calculator</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <script src="index.js" defer></script>
+    <title>SKL Calculator</title>
 </head>
 <body>
     <div class="device">
         <div class="screen">
-            <div id="main">0</div>
-            <div id="operations"></div>
+          <div data-previous-operand class="previous-op"></div>
+          <div data-current-operand class="current-op"></div>
         </div>
-        <div class="keys">
-            <div class="row" id="row1">
-                <button value="" class="key">C</button>
-                <button value="Backspace" class="key"><</button>
-                <button value="+-" class="key">+ / -</button>
-                <button value="%" class="key">%</button>
-                <button value="/" class="key">÷</button>
-            </div>
-            <div class="row" id="row2">
-                <button value="7" class="key">7</button>
-                <button value="8" class="key">8</button>
-                <button value="9" class="key">9</button>
-                <button value="*" class="key">X</button>
-            </div>
-            <div class="row" id="row3">
-                <button value="4" class="key">4</button>
-                <button value="5" class="key">5</button>
-                <button value="6" class="key">6</button>
-                <button value="-" class="key">—</button>
-            </div>
-            <div class="row" id="row4">
-                <button value="1" class="key">1</button>
-                <button value="2" class="key">2</button>
-                <button value="3" class="key">3</button>
-                <button value="+" class="key">+</button>
-            </div>
-            <div class="row" id="row5">
-                <button value="0" class="key">0</button>
-                <button value="." class="key">.</button>
-                <button value="Enter" class="key">=</button>
-            </div>
-        </div>
+        <button class="clear doble-size light-col">AC</button>
+        <button class="delete light-col">&#9665</button>
+        <button class ="operator bg-size lighter-col">÷</button>
+        <button class="number">1</button>
+        <button class="number">2</button>
+        <button class="number">3</button>
+        <button class ="operator bg-size lighter-col">x</button>
+        <button class="number">4</button>
+        <button class="number">5</button>
+        <button class="number">6</button>
+        <button class ="operator bg-size lighter-col">+</button>
+        <button class="number">7</button>
+        <button class="number">8</button>
+        <button class="number">9</button>
+        <button class ="operator bg-size lighter-col">-</button>
+        <button class="number doble-size">0</button>
+        <button class="number bg-size">.</button>
+        <button class="equals bg-size lighter-col">=</button>
     </div>
-    
-    <script src="index.js"></script>
 </body>
 </html>

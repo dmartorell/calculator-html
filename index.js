@@ -1,243 +1,141 @@
-// TODOS ******
 
-// BOTÓN DE +/-
-// USO DEL %   ??
-
-
-const OPERATORS = new Set([  '/', '*', '+', '-', '%' ]); 
-const OPERANDS = new Set([ '1', '2', '3', '4', '5', '6', '7', '8', '9', '0' ]);
-const SPECIAL_KEYS = new Set([ 'Enter', 'Backspace', '=', '.', ',' ]);
-const calculate = {
-    '+' : (a,b) => a + b,
-    '-' : (a,b) => a - b,
-    '*' : (a,b) => a * b, 
-    '/' : (a,b) => a / b,
-    '%' : (a) => a / 100, 
-}
-
-const main = document.querySelector('#main');
-
-let stringFromUser = '';
-let lastResult;
-let pointCounter = 0;
-let result;
-
-window.addEventListener('click', computeInput);
-
-window.addEventListener('keydown', computeInput);
+// TODOS:
+// Poder colocar símbolo negativo 
+// format números (separación con puntos y comas) : Intl.NumberFormat
+// Entrada input por teclado;
+// Número + operador + '='   ------> 2+= 4; 2-= 0; 2x= 4; 2÷= 1;
+// Presionar '=' otra vez después de una operación ------> 5-1 = 4 = 3 = 2 = 1...
 
 
-function computeInput(e){
-    const value = e.key || e.target.value;
-    let lastChar = stringFromUser.charAt(stringFromUser.length - 1);
-    if(isValid(value, lastChar, pointCounter)){
-        
-        switch(value){
-            
-            case ',':
-            case '.':
-                if(stringFromUser === 0 && main.textContent === '0'){
-                    stringFromUser += '0.';
-                    main.textContent = '0.'
-                } else if(!stringFromUser && main.textContent.length > 0){
-                    stringFromUser += '0.';
-                    main.textContent = '0.'
-                }else if(OPERATORS.has(lastChar)){
-                    stringFromUser += '0.';
-                    main.textContent += '0.';
+let currentOperationValue = '';
+let previousOperationValue = '';
+let currentOperator = '';
+let lastKey = null;
 
-                } else {
-                    stringFromUser += '.';
-                    main.textContent += '.';
-                }
-                pointCounter = 1;
-                
-            break;
+let currentOperationDisplay = document.querySelector('.current-op');
+let previousOperationDisplay = document.querySelector('.previous-op');
 
-            case '*':
-                if(!stringFromUser){
-                    stringFromUser += result ? `${result}*` : '0*';
-                    main.textContent = stringFromUser.replace('*', ' x ');
-                    pointCounter = 0;
-                } else {
-                    stringFromUser += '*';
-                    main.textContent += ' x ';
-                    pointCounter = 0;
-                }
-                
-            break;
-            case '/':
+const clearKey = document.querySelector('.clear');
+const delKey = document.querySelector('.delete');
+const numberKeys = document.querySelectorAll('.number');
+const operatorKeys = document.querySelectorAll('.operator')
+const equalsKey = document.querySelector('.equals');
 
-                if(!stringFromUser){
-                    stringFromUser += result ? `${result}/` : '0/';
-                    main.textContent = stringFromUser.replace('/', ' ÷ ');
-                    pointCounter = 0;
-                } else {
-                    stringFromUser += '/';
-                    main.textContent += ' ÷ ';
-                    pointCounter = 0;
-                }
-            
-            break;
-            case '+':
-            
-                if(!stringFromUser){
-                    stringFromUser += result ? `${result}+` : '0+';
-                    main.textContent = stringFromUser.replace('+', ' + ');
-                    pointCounter = 0;
-                } else {
-                    stringFromUser += '+';
-                    main.textContent += ' + ';
-                    pointCounter = 0;
-                }
+numberKeys.forEach(key => key.addEventListener('click', ()=> {
+    if(currentOperationValue === 'Error' || lastKey === '=') clear();
+    lastKey = false;
+    addNumToCurrentOperation(key);
+}));
 
-            break;
-            case '-':
+operatorKeys.forEach(key => key.addEventListener('click', () => {
+    lastKey = null;
+    addOperator(key);
+}));
 
-                if(!stringFromUser){
-                    stringFromUser += result ? `${result}-` : '0-';
-                    main.textContent = stringFromUser.replace('-', ' - ');
-                    pointCounter = 0;
-                } else {
-                    stringFromUser += '-';
-                    main.textContent += ' - ';
-                    pointCounter = 0;
-                }
-            
-            break;
-            case '%':
+clearKey.addEventListener('click', clear);
 
-                if(!stringFromUser){
-                    stringFromUser += result ? `${result}%` : '0%';
-                    main.textContent = stringFromUser.replace('%', ' % ');
-                    pointCounter = 0;
-                } else {
-                    stringFromUser += '%';
-                    main.textContent += ' % ';
-                    pointCounter = 0;
-                }
-            
-            break;
+delKey.addEventListener('click', () => {
+    if(currentOperationValue && lastKey !== '='){
+        currentOperationValue = currentOperationValue.slice(0,-1);
+        updateScreen();
+    } else {
+        clear();
+    }
+});
 
-            case 'Backspace':
-               
-                if(stringFromUser.length <= 1){
-                    screenToZero();
-                    resetStringFromUser();
-                    resetResult();
-                    pointCounter = 0;
-                }
-                else {
-                    if(lastChar === '.'){
-                        pointCounter = 0;
-                    } 
-                    if(OPERATORS.has(lastChar)){
-                        main.textContent = main.textContent.slice(0,-2);
-                    }
-
-                    stringFromUser = stringFromUser.slice(0,-1);
-                    main.textContent = main.textContent.slice(0,-1);
-                }
-                
-            break;
-            
-            case 'Enter':
-                //////////// ENTER KEY or =
-
-            if(!stringFromUser) {  // usuario aprieta intro sobre un resultado ya dado.
-                main.textContent = result || '0';   // Sin la segunda opción, si el usuario pulsa intro sobre el 0 inicial este desaparece
-                pointCounter = 0;
-            } 
-        
-            else if(stringFromUser){
-                const parsedString = parseString(stringFromUser);
-                console.log(parsedString);
-                result = processParsedString (parsedString);
-                console.log({result});
-                stringFromUser = '';
-                main.textContent = result;
-                // lastResult = result;
-                pointCounter = 0;
-            }
+equalsKey.addEventListener('click', ()=> {
+    lastKey = '=';
+    if(currentOperationValue.slice(-1) === '.'){
+        lastKey = null;
+        return;
+    }
+    if(!currentOperationValue) {
+        return;
+    }
+    if(!previousOperationValue){
+        return;
+    }
     
-            break;
-            
-            default:
-                
-            if(!stringFromUser){
-                stringFromUser += value;
-                main.textContent = value;
-            }
-            else {
-                stringFromUser += value;
-                main.textContent += value;
-            }
-        }
+    let result = compute();
+    previousOperationValue = '';
+    currentOperator = '';
+    if(isNaN(result)){
+        currentOperationValue = 'Error';
+    } else {
+        currentOperationValue = result;
     }
-};
+    updateScreen();
+})
 
-function resetStringFromUser(){
-    return stringFromUser = '';
-}
+function compute(){
+    let result;
+    switch(currentOperator){
+        case 'x':
+            result = Number(previousOperationValue) * Number(currentOperationValue);
+        break;
+        case '÷':
+            result = Number(previousOperationValue) / Number(currentOperationValue);
+        break;
+        case '+':
+            result = Number(previousOperationValue) + Number(currentOperationValue);
+        break;
+        case '-':
+            result = Number(previousOperationValue) - Number(currentOperationValue);
+        break;
 
-function resetResult(){
-    return result = 0;
-}
+        default:
+            return;
 
-function screenToZero(){
-    return main.textContent = 0;
-}
-
-function clearScreen(){
-    main.textContent = 0;
-    return;
-}
-
-function isEnter(key){
-    return key === 'Enter' || key === '='
-}
-
-function isValid(key, lastChar, pointCounter){
-
-    if (!OPERANDS.has(key) && !OPERATORS.has(key) && !SPECIAL_KEYS.has(key)) return false;
-    if ((key === ',' || key === '.') && pointCounter > 0) return false; 
-    if (lastChar !== '%' && OPERATORS.has(lastChar) && key === 'Enter') return false;
-
-    
-    if (key === '*' && lastChar === '*') return false;
-    if (key === '/' && lastChar === '/') return false;
-    if (key === '+' && lastChar === '+') return false;
-    if (key === '-' && lastChar === '-') return false;
-    if (key === '%' && lastChar === '%') return false;
-
-    return true;
-}
-
-function parseString(str){
-
-    const regex = /(?<operand>Infinity|[+\-]?\d*\.?\d+)(?<operator>[/*+\-%])?/g;
-    let matches = [];
-    const output = [];
-    let match;
-    while(match = regex.exec(str)){ //el resultado del exec cambia en cada iteración. La última(no hay matches) es undefined y el while se rompe.
-        matches.push(match); 
     }
-    for(let match of matches){
-        const { operand, operator } = match.groups;
-        output.push(operand, operator);
-    }
-    output
-    return output.filter(element => element);
+    result = +result.toFixed(2);
+    return result.toString();
 }
 
-function processParsedString(parsedArray){
-    let total = +parsedArray[0]
+function addOperator(key){
+    if(!currentOperationValue && !previousOperationValue || currentOperationValue === '0.') return;
+    if(currentOperationValue === 'Error') clear();
+    if(!currentOperationValue){
 
-    for(let i = 1; i < parsedArray.length; i += 2){
-        const operator = parsedArray[i];
-        const next = parsedArray[i+1];
-        total = +(calculate[operator](total,+next)).toFixed(10);
+        currentOperator = key.textContent;
+        updateScreen();
+        return;
+    } 
+    if(previousOperationValue){
+        let result = compute();
+        previousOperationValue = result;
+        currentOperationValue = '';
+        currentOperator = key.textContent;
+        updateScreen();
+
+    } else {
+    currentOperator = key.textContent;
+    previousOperationValue = currentOperationValue;
+    currentOperationValue = '';
+    updateScreen();
     }
-    total = isNaN(total) ? 'Error' : total;
-    return total;
+}
+
+function clear(){
+    currentOperationValue = '';
+    previousOperationValue = '';
+    currentOperator = '';
+    updateScreen();
+}
+
+function addNumToCurrentOperation(key){
+    const num = key.textContent;
+    if(num === '.' && currentOperationValue.includes('.')){
+        return;
+    } else if(num === '.' && !currentOperationValue){
+        currentOperationValue = '0.';
+        updateScreen();
+    } else {
+        currentOperationValue += num;
+        updateScreen();
+    }
+}
+
+function updateScreen(){
+    currentOperationDisplay.textContent = currentOperationValue;
+    previousOperationDisplay.textContent = `${previousOperationValue} ${currentOperator}`;
 }

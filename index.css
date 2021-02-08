@@ -1,89 +1,82 @@
-*, *:before, *:after {
+*, *::before, *::after {
     box-sizing: border-box;
+    font-family: 'Quicksand', Arial;
+    font-weight:100;
+    font-size: 0.9rem;
+    color: rgb(238, 238, 238)
 }
 
 body {
-    background-color:#352f5e;
+    background-color:#cdcdcd;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: Arial, Helvetica, sans-serif;
+}
+
+.device {
+    display: grid;
+    margin-top: 50px;
+    grid-template-columns: repeat(4, 70px);
+    grid-template-rows: minmax(120px, auto) repeat(5, 75px); /* minmax hace referencia a la primera row, la pantalla. El auto premite que siga creciendo a medida que aumenta la cantidad de números*/ 
+    background: linear-gradient(32deg, rgb(12, 179, 176) 0%, rgba(3,21,62,1) 78%);
+    border-radius: 18px;
+    box-shadow: rgba(17, 17, 26, 0.3) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    cursor: pointer;
 
 }
 button {
+    font-size: 1.2rem;
+    border: 1px solid rgb(22, 56, 89, 0.05);
+    outline: none;
     background-color: transparent;
-    border-radius: 3px;
+    transition: 100ms;
     cursor: pointer;
-    border: 1px solid rgb(22, 56, 89, 0.1);
-    transition: 100ms background-color;
-
-
 }
-button:focus { outline: none; }
-button:hover { background-color: rgba(3, 190, 113, 0.5); }
 
-.device {
-    display: flex;
-    flex-direction: column;
+button:hover { border-color: rgba(3, 190, 134, 0.3); } 
 
-    /* border: 1px solid aqua; */
-    width: 400px;
-    height: 500px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-
-    /* GRADIENT */
-    background: rgb(116,228,224);
-    background: -moz-linear-gradient(32deg, rgba(116,228,224,1) 0%, rgba(3,21,62,1) 74%);
-    background: -webkit-linear-gradient(32deg, rgba(116,228,224,1) 0%, rgba(3,21,62,1) 74%);
-    background: linear-gradient(32deg, rgba(16,228,224,1) 0%, rgba(3,21,62,1) 75%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#74e4e0",endColorstr="#03153e",GradientType=1);
+button:last-child {
+    border-bottom-right-radius: 18px;
 }
-#main {
-    font-size: 2.5em;
-    margin-right: 10px;
-    margin-top: 10px;   
-}
-#operations {
-    margin-right: 10px; 
-    margin-top: 10px;
-    font-size: 0.7em;
 
+button:nth-last-child(3) {
+    border-bottom-left-radius: 18px;
 }
+
+.bg-size {
+    font-size: 1.6rem;
+    padding-bottom: 5px;
+}
+
+.lighter-col { background-color: rgba(238, 238, 238, 0.18) }
+.light-col { background-color: rgba(66, 240, 202, 0.05) }
+
+.doble-size {
+    grid-column: span 2;
+  }
+
 .screen {
-    height: 125px;
-    /* border: 1px solid antiquewhite; */
-    margin: 10px 10px;
-    color: beige;
-    text-align: right;
-
-}
-.keys {
-    /* display: flex; */
-    height: 100%;
-    /* border: 2px solid red; */
-    margin: 10px 10px;
-    flex-wrap: wrap;
-    justify-items: flex-end;
-}
-
-.key {
+    grid-column: 1 / 5;
+    background-color: transparent;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: beige;
-    padding: 20px 20px;
-    margin-left: 3px;
-    margin-right: 3px;
-    
-    
-}
-.row {
-    display: flex;
-    justify-content: stretch;
-    margin: 3px;
+    align-items: flex-end;
+    justify-content:space-between;
+    flex-direction: column;
+    padding: 10px;
+    word-break: break-all;
+    padding: 0px 20px 0px 20px;
 }
 
+.screen .current-op {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 2.5rem;
+    padding-bottom: 16px;
 
+}
 
+.screen .previous-op {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    padding-top: 19px;
 
+}
