@@ -1,65 +1,103 @@
 
+// TODOS:
+// Poder colocar símbolo negativo 
+// format números (separación con puntos y comas) : Intl.NumberFormat
+// Entrada input por teclado;
+// Número + operador + '='   ------> 2+= 4; 2-= 0; 2x= 4; 2÷= 1;
+// Presionar '=' otra vez después de una operación ------> 5-1 = 4 = 3 = 2 = 1...
 
 
 let currentOperationValue = '';
 let previousOperationValue = '';
 let currentOperator = '';
-let lastKey = null;
-
 let currentOperationDisplay = document.querySelector('.current-op');
 let previousOperationDisplay = document.querySelector('.previous-op');
 
-const clearKey = document.querySelector('.clear');
-const delKey = document.querySelector('.delete');
-const numberKeys = document.querySelectorAll('.number');
-const operatorKeys = document.querySelectorAll('.operator')
-const equalsKey = document.querySelector('.equals');
+let lastKey = null;
 
-numberKeys.forEach(key => key.addEventListener('click', ()=> {
-    if(currentOperationValue === 'Error' || lastKey === '=') clear();
-    lastKey = false;
-    addNumToCurrentOperation(key);
-}));
+document.addEventListener('click', (e)=> {
+    const key = e.target;
+    
+    if(key.id === 'clear') clearOperations();
+    if(key.id === 'delete') deleteLastNumber();
+    if(key.id === 'number') addNumToCurrentOperation(key);
+    if(key.id === 'operator') addOperatorToCurrentOperation(key);
+    if(key.id === 'equals') runEquals();
+});
 
-operatorKeys.forEach(key => key.addEventListener('click', () => {
-    lastKey = null;
-    addOperator(key);
-}));
+function clearOperations(){
+    currentOperationValue = '';
+    previousOperationValue = '';
+    currentOperator = '';
+    updateScreen();
+}
 
-clearKey.addEventListener('click', clear);
-
-delKey.addEventListener('click', () => {
+function deleteLastNumber(){
     if(currentOperationValue && lastKey !== '='){
         currentOperationValue = currentOperationValue.slice(0,-1);
         updateScreen();
     } else {
-        clear();
+        clearOperations();
     }
-});
+}
 
-equalsKey.addEventListener('click', ()=> {
-    lastKey = '=';
-    if(currentOperationValue.slice(-1) === '.'){
-        lastKey = null;
-        return;
-    }
-    if(!currentOperationValue) {
-        return;
-    }
-    if(!previousOperationValue){
-        return;
-    }
+function addNumToCurrentOperation(key){
+    const num = key.textContent;
+    if(currentOperationValue === 'Error' || lastKey === '=') clearOperations();
     
-    let result = compute();
-    previousOperationValue = '';
-    currentOperator = '';
-    if(isNaN(result)){
-        currentOperationValue = 'Error';
+    lastKey = false;
+
+    if(num === '.' && currentOperationValue.includes('.')){
+        return;
+    } else if(num === '.' && !currentOperationValue){
+        currentOperationValue = '0.';
+        updateScreen();
     } else {
-        currentOperationValue = result;
+        currentOperationValue += num;
+        updateScreen();
     }
-    updateScreen();
-})
+}
+
+function addOperatorToCurrentOperation(key){
+    lastKey = null;
+
+    if(isValidOperator(key)){
+    
+        if(previousOperationValue){
+            let result = compute();
+            previousOperationValue = result;
+            currentOperationValue = '';
+            currentOperator = key.textContent;
+            updateScreen();
+
+        } else {
+            currentOperator = key.textContent;
+            previousOperationValue = currentOperationValue;
+            currentOperationValue = '';
+            updateScreen();
+            }
+    }
+}
+
+function runEquals(){
+    lastKey = '=';
+    if(isValidEquals()) {
+        let result = compute();
+        previousOperationValue = '';
+        currentOperator = '';
+        if(isNaN(result)){
+            currentOperationValue = 'Error';
+        } else {
+            currentOperationValue = result;
+        }
+        updateScreen();
+        return;
+    } else {
+        return;
+    }
+}
+
+// HELPER FUNCTIONS
 
 function compute(){
     let result;
@@ -85,51 +123,31 @@ function compute(){
     return result.toString();
 }
 
-function addOperator(key){
-    if(!currentOperationValue && !previousOperationValue || currentOperationValue === '0.') return;
-    if(currentOperationValue === 'Error') clear();
+function updateScreen(){
+    currentOperationDisplay.textContent = currentOperationValue;
+    previousOperationDisplay.textContent = `${previousOperationValue} ${currentOperator}`;
+}
+
+function isValidEquals(){
+    if(currentOperationValue.slice(-1) === '.'){
+        lastKey = null;
+        return false;
+    }
+    if(!currentOperationValue || !previousOperationValue) return false;
+    return true;
+}
+
+function isValidOperator(key){
+    if(!currentOperationValue && !previousOperationValue || currentOperationValue === '0.') return false;
+    if(currentOperationValue === 'Error'){
+        clearOperations();
+        return false;
+    }
     if(!currentOperationValue){
 
         currentOperator = key.textContent;
         updateScreen();
-        return;
+        return false;
     } 
-    if(previousOperationValue){
-        let result = compute();
-        previousOperationValue = result;
-        currentOperationValue = '';
-        currentOperator = key.textContent;
-        updateScreen();
-
-    } else {
-    currentOperator = key.textContent;
-    previousOperationValue = currentOperationValue;
-    currentOperationValue = '';
-    updateScreen();
-    }
-}
-
-function clear(){
-    currentOperationValue = '';
-    previousOperationValue = '';
-    currentOperator = '';
-    updateScreen();
-}
-
-function addNumToCurrentOperation(key){
-    const num = key.textContent;
-    if(num === '.' && currentOperationValue.includes('.')){
-        return;
-    } else if(num === '.' && !currentOperationValue){
-        currentOperationValue = '0.';
-        updateScreen();
-    } else {
-        currentOperationValue += num;
-        updateScreen();
-    }
-}
-
-function updateScreen(){
-    currentOperationDisplay.textContent = currentOperationValue;
-    previousOperationDisplay.textContent = `${previousOperationValue} ${currentOperator}`;
+    return true;
 }
